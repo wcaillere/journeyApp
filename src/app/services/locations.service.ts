@@ -7,7 +7,7 @@ export class Location {
   id!: number;
   name!: string;
   notes: number[] = [];
-  localisation!: object;
+  localisation!: any;
 }
 
 const URL = 'http://localhost:3000/locations';
