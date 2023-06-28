@@ -6,14 +6,17 @@
 
 <ion-content [fullscreen]="true">
   <ion-list>
-    <ion-item *ngFor="let note of noteSrv.noteList">
-      <ion-label>{{note.title}}</ion-label>
+    <ion-item *ngFor="let note of noteList">
+      <ion-label>
+        {{note.title}}
+        <p>{{note.date | date: "dd/MM/yyyy"}}</p>
+      </ion-label>
     </ion-item>
   </ion-list>
 </ion-content>
 
 <ion-footer>
   <ion-toolbar>
-    <ion-button expand="block" class="ion-margin">Ajouter une note</ion-button>
+    <ion-button expand="block" class="ion-margin" routerLink="/new-note">Ajouter une note</ion-button>
   </ion-toolbar>
 </ion-footer>

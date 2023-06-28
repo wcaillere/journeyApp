@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {Router} from "@angular/router";
+import {Subject} from "rxjs";
 
 export class Note {
   id!: number;
   title!: string;
-  date!: Date;
-  locationId!: number;
+  date!: string;
+  locationId!: number | null;
   description?: string;
   photos: string[] = [];
 }
@@ -17,17 +19,26 @@ const URL = 'http://localhost:3000/notes';
 })
 export class NotesService {
 
-  noteList: Note[] = [];
+  noteListChanged: Subject<Note[]>;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
+    this.noteListChanged = new Subject<Note[]>();
   }
 
   loadNotes(){
     this.http.get(URL).subscribe(
       (response: any) => {
+        this.noteListChanged.next(response);
+      }
+    )
+  }
+
+  saveNote(data: Note) {
+    this.http.post(URL, data).subscribe(
+      (response: any)  => {
         console.log(response);
-        this.noteList = response;
-        console.log(this.noteList)
+        this.loadNotes();
+        this.router.navigateByUrl('/tabs/home')
       }
     )
   }

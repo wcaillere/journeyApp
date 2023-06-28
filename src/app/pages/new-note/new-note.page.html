@@ -1,15 +1,15 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>Création d'une note</ion-title>
-    <ion-button class="ion-margin-end" slot="end">Retour</ion-button>
+    <ion-button class="ion-margin-end" slot="end" routerLink="/tabs/home">Retour</ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-list>
     <ion-item>
-      <ion-select label="lieu lié à la note" label-placement="floating" [ngModel]="newNote.locationId">
-        <ion-select-option *ngFor="let location of locationSrv.locationList" [value]="location.id">{{location.name}}</ion-select-option>
+      <ion-select label="lieu lié à la note" label-placement="floating" [(ngModel)]="newNote.locationId">
+        <ion-select-option *ngFor="let location of locationList" [value]="location.id">{{location.name}}</ion-select-option>
       </ion-select>
       <ion-icon name="add-circle" slot="end"></ion-icon>
     </ion-item>
@@ -22,7 +22,6 @@
     <ion-item>
       <ion-textarea rows="5" label="Description" label-placement="floating" [(ngModel)]="newNote.description"></ion-textarea>
     </ion-item>
-    <hr/>
     <ion-item>
       <ion-grid>
         <ion-row>
@@ -44,7 +43,7 @@
           <ion-button expand="block"  color="warning">Vider le formulaire</ion-button>
         </ion-col>
         <ion-col>
-          <ion-button expand="block">Valider</ion-button>
+          <ion-button expand="block" (click)="saveNote()">Valider</ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>
