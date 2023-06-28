@@ -1,33 +1,31 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {Note} from "./notes.service";
 
-export class Note {
+export class Location {
   id!: number;
-  title!: string;
-  date!: Date;
-  locationId!: number;
-  description?: string;
-  photos: string[] = [];
+  name!: string;
+  notes: number[] = [];
+  localisation!: object;
 }
 
-const URL = 'http://localhost:3000/notes';
+const URL = 'http://localhost:3000/locations';
 
 @Injectable({
   providedIn: 'root'
 })
-export class NotesService {
+export class LocationsService {
 
-  noteList: Note[] = [];
+  locationList: Location[] = [];
 
   constructor(private http: HttpClient) {
   }
 
-  loadNotes(){
+  loadLocations(){
     this.http.get(URL).subscribe(
       (response: any) => {
         console.log(response);
-        this.noteList = response;
-        console.log(this.noteList)
+        this.locationList = response;
       }
     )
   }

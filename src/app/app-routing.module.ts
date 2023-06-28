@@ -13,6 +13,10 @@ const routes: Routes = [
   {
     path: 'map',
     loadChildren: () => import('./pages/map/map.module').then( m => m.MapPageModule)
+  },
+  {
+    path: 'new-note',
+    loadChildren: () => import('./pages/new-note/new-note.module').then( m => m.NewNotePageModule)
   }
 ];
 @NgModule({
