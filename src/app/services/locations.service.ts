@@ -17,6 +17,7 @@ const URL = 'http://localhost:3000/locations';
 })
 export class LocationsService {
 
+  modalNotes:  Note[] = [];
   locationListChanged: Subject<Location[]>;
 
   constructor(private http: HttpClient) {
@@ -27,6 +28,14 @@ export class LocationsService {
     this.http.get(URL).subscribe(
       (response: any) => {
         this.locationListChanged.next(response);
+      }
+    )
+  }
+
+  getNotesOfOneLocation(location: Location){
+    this.http.get(`http://localhost:3000/notes?locationId=${location.id}`).subscribe(
+      (response: any)  => {
+        this.modalNotes = response;
       }
     )
   }

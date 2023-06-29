@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Map, tileLayer, marker, icon, LatLngExpression } from 'leaflet';
 import {LocationsService, Location} from "../../services/locations.service";
+import {AlertController, ModalController} from "@ionic/angular";
+import {MapModalComponent} from "../../components/map-modal/map-modal.component";
 
 @Component({
   selector: 'app-map',
@@ -12,7 +14,7 @@ export class MapPage implements OnInit {
   public map!: Map;
   locationList: Location[] = [];
 
-  constructor(private locationSrv: LocationsService) {
+  constructor(private locationSrv: LocationsService, private modalController: ModalController) {
 
   }
 
@@ -29,8 +31,18 @@ export class MapPage implements OnInit {
     this.locationSrv.loadLocations();
   }
 
+  async showMarkerDialog(location: Location){
+    const modal =await this.modalController.create({
+      component: MapModalComponent,
+      componentProps: {
+        location: location
+      },
+    });
+    return modal.present();
+  }
+
   leafLetInit() {
-    this.map.setView([45, 2], 5);
+    this.map.setView([45, 2], 4);
 
     const markerIcon = icon({
       iconUrl: 'assets/icon/locationIcon.webp',
@@ -42,17 +54,9 @@ export class MapPage implements OnInit {
       const locationMarker = marker([location.localisation.lat, location.localisation.long], {
         icon: markerIcon
       })
-
-      // Création du contenu de la Popup
-      const div = document.createElement("div");
-      div.innerHTML = `<p>${location.name}</p>`;
-      const button = document.createElement("ion-button");
-      button.innerHTML = "Notes";
-      button.setAttribute("size", "small");
-      button.setAttribute("href", "/tabs/home");
-      div.appendChild(button);
-
-      locationMarker.bindPopup(div)
+      locationMarker.on('click', () => {
+        this.showMarkerDialog(location);
+      })
       locationMarker.addTo(this.map);
     }
 

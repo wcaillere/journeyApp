@@ -9,9 +9,10 @@ import { AppComponent } from './app.component';
 import {NotesService} from "./services/notes.service";
 import {HttpClientModule} from "@angular/common/http";
 import {LocationsService} from "./services/locations.service";
+import {MapModalComponent} from "./components/map-modal/map-modal.component";
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, MapModalComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, NotesService, LocationsService],
   bootstrap: [AppComponent],
