@@ -12,7 +12,7 @@ export class Note {
   photos: string[] = [];
 }
 
-const URL = 'http://localhost:3000/notes';
+const URL = 'http://localhost:3000/notes/';
 
 @Injectable({
   providedIn: 'root'
@@ -38,6 +38,14 @@ export class NotesService {
       (response: any)  => {
         this.loadNotes();
         this.router.navigateByUrl('/tabs/home')
+      }
+    )
+  }
+
+  deleteNote(id: number) {
+    this.http.delete(URL + id).subscribe(
+      (response: any)  => {
+        this.loadNotes();
       }
     )
   }
