@@ -36,7 +36,6 @@ export class NotesService {
   saveNote(data: Note) {
     this.http.post(URL, data).subscribe(
       (response: any)  => {
-        console.log(response);
         this.loadNotes();
         this.router.navigateByUrl('/tabs/home')
       }

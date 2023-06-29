@@ -1,13 +1,16 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>new-location</ion-title>
+    <ion-title>Nouveau lieu</ion-title>
+    <ion-button slot="end" fill="clear" color="success" (click)="goback()">Retour</ion-button>
   </ion-toolbar>
 </ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">new-location</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-list>
+    <div id="newLocationMap"></div>
+    <ion-item>
+      <ion-input label="Nom du lieu" label-placement="floating" [(ngModel)]="newPlace.name"></ion-input>
+    </ion-item>
+    <ion-button [disabled]="!isValid()" expand="block" class="ion-margin" (click)="saveNewLocation()">Valider</ion-button>
+  </ion-list>
 </ion-content>
+

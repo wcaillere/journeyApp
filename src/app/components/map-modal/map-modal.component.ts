@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Location, LocationsService} from "../../services/locations.service";
+import {Place, LocationsService} from "../../services/locations.service";
 import {ModalController} from "@ionic/angular";
 
 @Component({
@@ -9,7 +9,7 @@ import {ModalController} from "@ionic/angular";
 })
 export class MapModalComponent  implements OnInit {
 
-  location!: Location;
+  location!: Place;
 
   isModalOpen = true;
 

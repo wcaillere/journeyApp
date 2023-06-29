@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Map, tileLayer, marker, icon, LatLngExpression } from 'leaflet';
-import {LocationsService, Location} from "../../services/locations.service";
+import {LocationsService, Place} from "../../services/locations.service";
 import {AlertController, ModalController} from "@ionic/angular";
 import {MapModalComponent} from "../../components/map-modal/map-modal.component";
 
@@ -12,26 +12,24 @@ import {MapModalComponent} from "../../components/map-modal/map-modal.component"
 export class MapPage implements OnInit {
 
   public map!: Map;
-  locationList: Location[] = [];
+  locationList: Place[] = [];
 
   constructor(private locationSrv: LocationsService, private modalController: ModalController) {
 
   }
 
   ngOnInit() {
+    this.map = new Map('mapView');
     this.locationSrv.locationListChanged.subscribe(
       (response: any) => {
         this.locationList = response;
-
-        //Initialisation de la map
-        this.map = new Map('mapView');
         this.leafLetInit();
       }
     )
     this.locationSrv.loadLocations();
   }
 
-  async showMarkerDialog(location: Location){
+  async showMarkerDialog(location: Place){
     const modal =await this.modalController.create({
       component: MapModalComponent,
       componentProps: {
@@ -49,7 +47,6 @@ export class MapPage implements OnInit {
       iconSize: [20, 30]
     });
 
-    console.log(this.locationList)
     for (let location of this.locationList) {
       const locationMarker = marker([location.localisation.lat, location.localisation.long], {
         icon: markerIcon

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Note, NotesService} from "../../services/notes.service";
-import {LocationsService, Location} from "../../services/locations.service";
+import {LocationsService, Place} from "../../services/locations.service";
 
 export interface noteInput{
   title: string;
@@ -24,7 +24,7 @@ export class NewNotePage implements OnInit {
     photos: []
   };
 
-  locationList: Location[] = [];
+  locationList: Place[] = [];
 
   constructor(private noteSrv: NotesService, public locationSrv: LocationsService) { }
 
