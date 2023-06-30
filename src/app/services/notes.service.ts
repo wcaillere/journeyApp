@@ -33,6 +33,17 @@ export class NotesService {
     )
   }
 
+  /*
+  showNoteDetails(id: number) {
+    this.http.get(URL + id).subscribe(
+      (response: any) => {
+        this.router.navigate(['/note-details'], {})
+      }
+    )
+  }
+
+   */
+
   saveNote(data: Note) {
     this.http.post(URL, data).subscribe(
       (response: any)  => {

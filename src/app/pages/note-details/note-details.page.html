@@ -1,0 +1,29 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Détails de la note</ion-title>
+    <ion-button slot="end" fill="clear" (click)="goBack()">Retour</ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list>
+    <ion-item>
+      <ion-label>Titre :</ion-label>
+      <ion-text slot="end">{{noteDetails?.title}}</ion-text>
+    </ion-item>
+    <ion-item>
+      <ion-label>Lieu :</ion-label>
+      <ion-text slot="end">{{noteLocation?.name}}</ion-text>
+    </ion-item>
+    <ion-item>
+      <ion-label>Date :</ion-label>
+      <ion-text slot="end">{{noteDetails?.date}}</ion-text>
+    </ion-item>
+    <ion-list-header color="tertiary">Description :</ion-list-header>
+    <ion-item>
+      <ion-textarea  rows="6" [value]="noteDetails?.description"></ion-textarea>
+    </ion-item>
+    <ion-list-header color="tertiary">Photographies :</ion-list-header>
+    <ion-item *ngIf="!hasPhotos()"><p style="font-style: italic">Aucune photographie liée à cette note</p></ion-item>
+  </ion-list>
+</ion-content>
