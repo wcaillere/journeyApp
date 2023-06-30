@@ -21,7 +21,8 @@
     </ion-item>
     <ion-list-header color="tertiary">Description :</ion-list-header>
     <ion-item>
-      <ion-textarea  rows="6" [value]="noteDetails?.description"></ion-textarea>
+      <ion-textarea style="font-style: italic" *ngIf="noteDetails?.description === ''" value="pas de description"></ion-textarea>
+      <ion-textarea *ngIf="noteDetails?.description !== ''" rows="6" [value]="noteDetails?.description"></ion-textarea>
     </ion-item>
     <ion-list-header color="tertiary">Photographies :</ion-list-header>
     <ion-item *ngIf="!hasPhotos()"><p style="font-style: italic">Aucune photographie liée à cette note</p></ion-item>
