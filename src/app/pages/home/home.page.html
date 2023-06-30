@@ -6,7 +6,21 @@
 
 <ion-content [fullscreen]="true">
   <ion-list>
-    <ion-item-sliding *ngFor="let note of noteList">
+    <ion-list-header color="tertiary">
+      <ion-label>Filtres</ion-label>
+      <ion-button color="dark" (click)="filterNotePerDate()">trier</ion-button>
+      <ion-button color="dark" (click)="refreshFilters()"><ion-icon name="refresh"></ion-icon></ion-button>
+    </ion-list-header>
+    <ion-item>
+      <ion-label position="stacked">par date du</ion-label>
+      <ion-input aria-labelledby="" type="date" [(ngModel)]="filters.startDate"></ion-input>
+      <ion-label position="stacked">au</ion-label>
+      <ion-input aria-labelledby="" type="date" [(ngModel)]="filters.endDate"></ion-input>
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-list-header color="tertiary">Notes</ion-list-header>
+    <ion-item-sliding *ngFor="let note of noteListFiltered">
       <ion-item>
         <ion-label>
           {{note.title}}
