@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Map, tileLayer, marker, icon, LatLngExpression } from 'leaflet';
 import {LocationsService, Place} from "../../services/locations.service";
-import {AlertController, ModalController} from "@ionic/angular";
+import {AlertController, LoadingController, ModalController} from "@ionic/angular";
 import {MapModalComponent} from "../../components/map-modal/map-modal.component";
 
 @Component({
@@ -14,19 +14,30 @@ export class MapPage implements OnInit {
   public map!: Map;
   locationList: Place[] = [];
 
-  constructor(private locationSrv: LocationsService, private modalController: ModalController) {
+  constructor(private locationSrv: LocationsService, private modalController: ModalController, private loadCtrl: LoadingController) {
 
+  }
+
+  async showLoading() {
+    let loading = await this.loadCtrl.create({
+      message: "Chargement de la carte..."
+    });
+    return await loading.present();
   }
 
   ngOnInit() {
     this.map = new Map('mapView');
-    this.locationSrv.locationListChanged.subscribe(
-      (response: any) => {
-        this.locationList = response;
-        this.leafLetInit();
-      }
-    )
-    this.locationSrv.loadLocations();
+    this.showLoading().then(() => {
+      this.locationSrv.locationListChanged.subscribe(
+        (response: any) => {
+          this.locationList = response;
+          this.leafLetInit();
+        }
+      )
+        this.loadCtrl.dismiss();
+        this.locationSrv.loadLocations();
+    }
+    );
   }
 
   async showMarkerDialog(location: Place){
